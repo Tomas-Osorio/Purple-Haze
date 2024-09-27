@@ -1,134 +1,189 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Peliculonas</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="Style.css" rel="stylesheet" type="text/css">
-<script>var __adobewebfontsappname__="dreamweaver"</script><script src="http://use.edgefonts.net/montserrat:n4:default;source-sans-pro:n2:default.js" type="text/javascript"></script>
+    <meta charset="utf-8">
+    <title>Peliculonas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body>
 <div id="mainWrapper">
-  <header> 
-    <!-- This is the header content. It contains Logo and links -->
-    <div id="logo">  <img src="logoImage.png" alt="logo">
-      Texto al lado del Logo </div>
-    <div id="headerLinks"><a href="#" title="Login/Register">Login/Register</a></div>
-  </header>
-  <section id="offer"> 
-    <!-- Banner -->
-    <h2>God Pelis</h2>
-    <p>Peliculonas con resenas y asi </p>
-  </section>
-  <div id="content">
-    <section class="sidebar"> 
-      <!-- Busqueda y menues -->
-      <input type="text"  id="search" value="search">
-      <div id="menubar">
-        <nav class="menu">
-          <h2><!-- Title for menuset 1 -->MENU ITEM 1 </h2>
-          <hr>
-          <ul>
-            <!-- Menu 1 -->
-            <li><a href="#" title="Link">Link 1</a></li>
-            <li><a href="#" title="Link">Link 2</a></li>
-            <li><a href="#" title="Link">Link 3</a></li>
-            <li class="notimp"><!-- no aparece en telefonos >:) --><a href="#"  title="Link">Link 4</a></li>
-          </ul>
-        </nav>
-        <nav class="menu">
-          <h2>MENU ITEM 2 </h2>
-          <!-- Title for menuset 2 -->
-          <hr>
-          <ul>
-            <!--Menu 2 -->
-            <li><a href="#" title="Link">Link 1</a></li>
-            <li><a href="#" title="Link">Link 2</a></li>
-            <li><a href="#" title="Link">Link 3</a></li>
-            <li class="notimp"><!-- no aparece en telefonos >:) --><a href="#" title="Link">Link 4</a></li>
-          </ul>
-        </nav>
-      </div>
+    <header> 
+        <div id="logo">
+            <img src="logoImage.png" alt="logo">
+            Peliculonas
+        </div>
+        <div id="headerLinks">
+            <button id="createReviewButton">Create Review</button>
+            <button id="loginButton">Login</button>
+            <button id="registerButton">Register</button>
+            <button id="logoutButton" style="display: none;">Logout</button> <!-- Hidden until logged in -->
+        </div>
+    </header>
+    
+    <section id="offer"> 
+        <h2>Welcome to Peliculonas</h2>
+        <p>Your favorite movie reviews, all in one place!</p>
     </section>
-    <section class="mainContent">
-      <div class="FilaPelis"><!-- 3 elementos  xfila -->
-        <article class="InfoPelicula"><!-- descripcion pelis -->
-          <div><img alt="sample" src="images/200x200.png"></div>
-          <p class="Titulo">TITULO</p>
-          <p class="ContenidoPelicula">descripcion  </p>
-          <input type="button" name="button" value="Mas Info" class="MasInfoBoton">
-        </article>
-        <article class="InfoPelicula"><!-- descripcion pelis -->
-          <div><img alt="sample" src="images/200x200.png"></div>
-          <p class="Titulo">TITULO</p>
-          <p class="ContenidoPelicula">descripcion </p>
-          <input type="button" name="button" value="Mas Info" class="MasInfoBoton">
-        </article>
-        <article class="InfoPelicula"> <!-- descripcion pelis -->
-          <div><img alt="sample" src="images/200x200.png"></div>
-          <p class="Titulo">TITULO</p>
-          <p class="ContenidoPelicula">descripcion </p>
-          <input type="button" name="button" value="Mas Info" class="MasInfoBoton">
-        </article>
-      </div>
-      <div class="FilaPelis"> 
-        <!-- 3 elementos x fila -->
-        <article class="InfoPelicula"> <!-- descripcion pelis -->
-          <div><img alt="sample" src="images/200x200.png"></div>
-          <p class="Titulo">TITULO</p>
-          <p class="ContenidoPelicula">descripcion </p>
-          <input type="button" name="button" value="Mas Info" class="MasInfoBoton">
-        </article>
-        <article class="InfoPelicula"> <!-- descripcion pelis -->
-          <div><img alt="sample" src="images/200x200.png"></div>
-          <p class="Titulo">TITULO</p>
-          <p class="ContenidoPelicula">descripcion </p>
-          <input type="button" name="button" value="Mas Info" class="MasInfoBoton">
-        </article>
-        <article class="InfoPelicula"><!-- descripcion pelis -->
-          <div><img alt="sample" src="images/200x200.png"></div>
-          <p class="Titulo">TITULO</p>
-          <p class="ContenidoPelicula">descripcion </p>
-          <input type="button" name="button" value="Mas Info" class="MasInfoBoton">
-        </article>
-      </div>
-      <div class="FilaPelis">
-        <article class="InfoPelicula"> <!-- descripcion pelis -->
-          <div><img alt="sample" src="images/200x200.png"></div>
-          <p class="Titulo">TITULO</p>
-          <p class="ContenidoPelicula">descripcion </p>
-          <input type="button" name="button" value="Mas Info" class="MasInfoBoton">
-        </article>
-        <article class="InfoPelicula"><!-- descripcion pelis -->
-          <div><img alt="sample" src="images/200x200.png"></div>
-          <p class="Titulo">TITULO</p>
-          <p class="ContenidoPelicula">descripcion </p>
-          <input type="button" name="button" value="Mas Info" class="MasInfoBoton">
-        </article>
-        <article class="InfoPelicula"><!-- descripcion pelis -->
-          <div><img alt="sample" src="images/200x200.png"></div>
-          <p class="Titulo">TITULO</p>
-          <p class="ContenidoPelicula">descripcion </p>
-          <input type="button" name="button" value="Mas Info" class="MasInfoBoton">
-        </article>
-      </div>
-    </section>
-  </div>
-  <footer> 
-    <!-- footer  -->
-    <div>
-      <p>Texto uno.</p>
+
+    <div id="content">
+        <section class="sidebar"> 
+            <input type="text" id="search" placeholder="Search movies...">
+            <div id="menubar">
+                <nav class="menu">
+                    <h2>Genres</h2>
+                    <hr>
+                    <ul>
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Drama</a></li>
+                        <li><a href="#">Comedy</a></li>
+                    </ul>
+                </nav>
+                <nav class="menu">
+                    <h2>More</h2>
+                    <hr>
+                    <ul>
+                        <li><a href="#">Top Rated</a></li>
+                        <li><a href="#">Latest</a></li>
+                        <li><a href="#">Upcoming</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+
+        <section class="mainContent">
+            <div class="FilaPelis">
+                <article class="InfoPelicula">
+                    <div><img alt="sample" src="images/200x200.png"></div>
+                    <p class="Titulo">Movie Title</p>
+                    <p class="ContenidoPelicula">Short description of the movie.</p>
+                    <input type="button" name="button" value="More Info" class="MasInfoBoton">
+                </article>
+            </div>
+        </section>
     </div>
-    <div>
-      <p>Texto dos</p>
-    </div>
-    <div class="footerlinks">
-      <p><a href="#" title="Link">Link 1 </a></p>
-      <p><a href="#" title="Link">Link 2</a></p>
-      <p><a href="#" title="Link">Link 3</a></p>
-    </div>
-  </footer>
+
+    <footer> 
+        <div>
+            <p>&copy; 2024 Peliculonas. All rights reserved.</p>
+        </div>
+        <div class="footerlinks">
+            <p><a href="#">Privacy Policy</a></p>
+            <p><a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
 </div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeLogin">&times;</span>
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email" required>
+        <input type="password" id="loginPassword" placeholder="Password (min 6 characters)" required>
+        <label><input type="checkbox" id="rememberMe"> Remember Me</label>
+        <button id="loginSubmit">Login</button>
+        <p class="error-message" id="loginError">All fields must be filled out correctly!</p>
+    </div>
+</div>
+
+<!-- Sign Up Modal -->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeSignup">&times;</span>
+        <h2>Sign Up</h2>
+        <input type="email" id="signupEmail" placeholder="Email" required>
+        <input type="text" id="signupUsername" placeholder="Username" required>
+        <input type="password" id="signupPassword" placeholder="Password (min 6 characters)" required>
+        <button id="signupSubmit">Sign Up</button>
+        <p class="error-message" id="signupError">All fields must be filled out and password must be at least 6 characters!</p>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        // Show modals
+        $('#loginButton').click(function() {
+            $('#loginModal').show();
+        });
+        $('#registerButton').click(function() {
+            $('#signupModal').show();
+        });
+
+        // Close modals
+        $('#closeLogin, #closeSignup').click(function() {
+            $(this).closest('.modal').hide();
+        });
+
+        // Validate and login
+        $('#loginSubmit').click(function() {
+            const email = $('#loginEmail').val();
+            const password = $('#loginPassword').val();
+            const rememberMe = $('#rememberMe').is(':checked');
+            const user = JSON.parse(localStorage.getItem(email));
+
+            if (email === '' || password === '' || password.length < 6) {
+                $('#loginError').show();
+            } else if (user && user.password === password) {
+                $('#loginError').hide();
+                alert('Login successful!');
+
+                // Store user in sessionStorage or localStorage based on Remember Me
+                if (rememberMe) {
+                    localStorage.setItem('currentUser', email);
+                } else {
+                    sessionStorage.setItem('currentUser', email);
+                }
+
+                $('#loginModal').hide();
+                $('#logoutButton').show(); // Show the logout button
+            } else {
+                $('#loginError').show().text('Invalid email or password.');
+            }
+        });
+
+        // Validate and sign up
+        $('#signupSubmit').click(function() {
+            const email = $('#signupEmail').val();
+            const username = $('#signupUsername').val();
+            const password = $('#signupPassword').val();
+
+            if (email === '' || username === '' || password === '' || password.length < 6 || !validateEmail(email)) {
+                $('#signupError').show();
+            } else if (localStorage.getItem(email)) {
+                $('#signupError').show().text('Email already exists. Please log in.');
+            } else {
+                const user = { username, password };
+                localStorage.setItem(email, JSON.stringify(user));
+                alert('Sign Up successful! You can now log in.');
+                $('#signupError').hide();
+                $('#signupModal').hide();
+            }
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Logout functionality
+        $('#logoutButton').click(function() {
+            sessionStorage.removeItem('currentUser');
+            localStorage.removeItem('currentUser');
+            alert('You have been logged out.');
+            $('#logoutButton').hide(); // Hide logout button
+        });
+
+        // Check if user is already logged in
+        const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
+        if (currentUser) {
+            const user = JSON.parse(localStorage.getItem(currentUser));
+            alert(`Welcome back, ${user ? user.username : ''}!`);
+            $('#logoutButton').show(); // Show the logout button
+        }
+    });
+</script>
+
 </body>
 </html>
