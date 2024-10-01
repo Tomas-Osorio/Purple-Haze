@@ -9,26 +9,54 @@
 </head>
 <body>
 <div id="mainWrapper">
-    <header> 
-        <div id="logo">
-            <img src="logoImage.png" alt="logo">
-            Peliculonas
+    <header>
+        <div id="userProfile" class="dropdown">
+            <button id="profileButton" class="profileButton">
+                <img src="defaultUserImage.png" alt="User Image" id="userImage" class="profileImage"> 
+                <span id="usernameDisplay">Username</span>
+            </button>
+            <div id="profileDropdown" class="dropdown-content">
+                <a href="#" id="updateImage">Update Profile Picture</a>
+                <a href="#" id="updateStatus">Update Status</a>
+                <a href="#" id="viewFavorites">Favorite Reviews</a>
+                <a href="#" id="logoutProfileOption">Logout</a>
+            </div>
         </div>
         <div id="headerLinks">
             <button id="createReviewButton">Create Review</button>
             <button id="loginButton">Login</button>
             <button id="registerButton">Register</button>
-            <button id="logoutButton" style="display: none;">Logout</button> <!-- Hidden until logged in -->
         </div>
     </header>
     
-    <section id="offer"> 
+    
+    <!-- Modal for updating profile picture -->
+    <div id="updateImageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeUpdateImage">&times;</span>
+            <h2>Update Profile Picture</h2>
+            <input type="file" id="newProfileImage" accept="image/*">
+            <button id="saveProfileImage">Save</button>
+        </div>
+    </div>
+    
+    <!-- Modal for updating status -->
+    <div id="updateStatusModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeUpdateStatus">&times;</span>
+            <h2>Update Status</h2>
+            <input type="text" id="newStatus" placeholder="Enter new status">
+            <button id="saveStatus">Save</button>
+        </div>
+    </div>
+    
+    <section id="offer">
         <h2>Welcome to Peliculonas</h2>
         <p>Your favorite movie reviews, all in one place!</p>
     </section>
 
     <div id="content">
-        <section class="sidebar"> 
+        <section class="sidebar">
             <input type="text" id="search" placeholder="Search movies...">
             <div id="menubar">
                 <nav class="menu">
@@ -64,7 +92,7 @@
         </section>
     </div>
 
-    <footer> 
+    <footer>
         <div>
             <p>&copy; 2024 Peliculonas. All rights reserved.</p>
         </div>
@@ -76,12 +104,12 @@
 </div>
 
 <!-- Login Modal -->
-<div id="loginModal" class="modal">
+<div id="loginModal" class="modal" style="display: none;">
     <div class="modal-content">
         <span class="close" id="closeLogin">&times;</span>
         <h2>Login</h2>
-        <input type="email" id="loginEmail" placeholder="Email" required>
-        <input type="password" id="loginPassword" placeholder="Password (min 6 characters)" required>
+        <input type="text" id="loginEmail" placeholder="Email" required>
+        <input type="password" id="loginPassword" placeholder="Password (min 8 characters)" required>
         <label><input type="checkbox" id="rememberMe"> Remember Me</label>
         <button id="loginSubmit">Login</button>
         <p class="error-message" id="loginError">All fields must be filled out correctly!</p>
@@ -89,101 +117,18 @@
 </div>
 
 <!-- Sign Up Modal -->
-<div id="signupModal" class="modal">
+<div id="signupModal" class="modal" style="display: none;">
     <div class="modal-content">
         <span class="close" id="closeSignup">&times;</span>
         <h2>Sign Up</h2>
-        <input type="email" id="signupEmail" placeholder="Email" required>
+        <input type="text" id="signupEmail" placeholder="Email" required>
         <input type="text" id="signupUsername" placeholder="Username" required>
-        <input type="password" id="signupPassword" placeholder="Password (min 6 characters)" required>
+        <input type="password" id="signupPassword" placeholder="Password (min 8 characters)" required>
         <button id="signupSubmit">Sign Up</button>
-        <p class="error-message" id="signupError">All fields must be filled out and password must be at least 6 characters!</p>
+        <p class="error-message" id="signupError">All fields must be filled out correctly!</p>
     </div>
 </div>
 
-<script>
-    $(document).ready(function() {
-        // Show modals
-        $('#loginButton').click(function() {
-            $('#loginModal').show();
-        });
-        $('#registerButton').click(function() {
-            $('#signupModal').show();
-        });
-
-        // Close modals
-        $('#closeLogin, #closeSignup').click(function() {
-            $(this).closest('.modal').hide();
-        });
-
-        // Validate and login
-        $('#loginSubmit').click(function() {
-            const email = $('#loginEmail').val();
-            const password = $('#loginPassword').val();
-            const rememberMe = $('#rememberMe').is(':checked');
-            const user = JSON.parse(localStorage.getItem(email));
-
-            if (email === '' || password === '' || password.length < 6) {
-                $('#loginError').show();
-            } else if (user && user.password === password) {
-                $('#loginError').hide();
-                alert('Login successful!');
-
-                // Store user in sessionStorage or localStorage based on Remember Me
-                if (rememberMe) {
-                    localStorage.setItem('currentUser', email);
-                } else {
-                    sessionStorage.setItem('currentUser', email);
-                }
-
-                $('#loginModal').hide();
-                $('#logoutButton').show(); // Show the logout button
-            } else {
-                $('#loginError').show().text('Invalid email or password.');
-            }
-        });
-
-        // Validate and sign up
-        $('#signupSubmit').click(function() {
-            const email = $('#signupEmail').val();
-            const username = $('#signupUsername').val();
-            const password = $('#signupPassword').val();
-
-            if (email === '' || username === '' || password === '' || password.length < 6 || !validateEmail(email)) {
-                $('#signupError').show();
-            } else if (localStorage.getItem(email)) {
-                $('#signupError').show().text('Email already exists. Please log in.');
-            } else {
-                const user = { username, password };
-                localStorage.setItem(email, JSON.stringify(user));
-                alert('Sign Up successful! You can now log in.');
-                $('#signupError').hide();
-                $('#signupModal').hide();
-            }
-        });
-
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        // Logout functionality
-        $('#logoutButton').click(function() {
-            sessionStorage.removeItem('currentUser');
-            localStorage.removeItem('currentUser');
-            alert('You have been logged out.');
-            $('#logoutButton').hide(); // Hide logout button
-        });
-
-        // Check if user is already logged in
-        const currentUser = localStorage.getItem('currentUser') || sessionStorage.getItem('currentUser');
-        if (currentUser) {
-            const user = JSON.parse(localStorage.getItem(currentUser));
-            alert(`Welcome back, ${user ? user.username : ''}!`);
-            $('#logoutButton').show(); // Show the logout button
-        }
-    });
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>

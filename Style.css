@@ -38,7 +38,7 @@ button:hover {
 }
 
 #offer {
-    text-align: center; /* Center the welcome text */
+    text-align: center; 
     padding: 50px 20px;
 }
 
@@ -75,8 +75,8 @@ footer {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;     /* Center vertically */
+    justify-content: center; 
+    align-items: center;
 }
 
 .modal-content {
@@ -84,11 +84,8 @@ footer {
     padding: 20px;
     width: 300px;
     border: 1px solid #534945;
-    text-align: center; /* Center modal content */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional for better appearance */
-    display: flex;
-    flex-direction: column;  /* Stack items vertically */
-    align-items: center;     /* Center items within modal-content */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .modal-content input {
@@ -96,15 +93,6 @@ footer {
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #AB968E;
-    box-sizing: border-box;
-}
-
-.modal-content form {
-    width: 100%;  /* Ensure the form takes full width */
-}
-
-button {
-    width: 100%; /* Ensure buttons are full width */
 }
 
 .error-message {
@@ -112,7 +100,6 @@ button {
     display: none;
 }
 
-/* Additional styling for a better visual experience */
 ul {
     list-style-type: none;
     padding: 0;
@@ -129,4 +116,70 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: red;
+}
+
+/* Profile Dropdown */
+#userProfile {
+    position: relative;
+    display: inline-block;
+}
+
+#profileDropdown {
+    display: none;
+    position: absolute;
+    background-color: #F7D9CD;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+#profileDropdown a {
+    color: #534945;
+    padding: 12px 16px;
+    display: block;
+}
+
+#profileDropdown a:hover {
+    background-color: #AB968E;
+}
+
+#userProfile:hover #profileDropdown {
+    display: block;
+}
+
+#userImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+@media only screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #content {
+        flex-direction: column;
+    }
+
+    .sidebar, .mainContent {
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }

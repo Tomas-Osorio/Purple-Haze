@@ -1,171 +1,110 @@
 $(document).ready(function() {
-    // Open login modal when clicking on login button
-    $('#loginButton').click(function() {
-        $('#loginModal').show();
-    });
-
-    // Open signup modal when clicking on register button
-    $('#registerButton').click(function() {
-        $('#signupModal').show();
-    });
-
-    // Close modals when clicking the close button
-    $('.close').click(function() {
-        $(this).closest('.modal').hide();
-    });
-
-    // Switch to Signup modal from Login modal
-    $('#showSignup').click(function() {
-        $('#loginModal').hide();
-        $('#signupModal').show();
-    });
-
-    // Switch to Login modal from Signup modal
-    $('#showLogin').click(function() {
-        $('#signupModal').hide();
-        $('#loginModal').show();
-    });
-
-    // Login function
-    $('#loginSubmit').click(function() {
-        const email = $('#loginEmail').val();
-        const password = $('#loginPassword').val();
-        const user = JSON.parse(localStorage.getItem(email));
-
-        if (user && user.password === password) {
-            alert('Login successful!');
-            $('#loginModal').hide();
-        } else {
-            alert('Invalid email or password.');
-        }
-    });
-
-    // Signup function
-    $('#signupSubmit').click(function() {
-        const email = $('#signupEmail').val();
-        const username = $('#signupUsername').val();
-        const password = $('#signupPassword').val();
-
-        if (localStorage.getItem(email)) {
-            alert('Email already exists. Please choose another one.');
-        } else {
-            const user = { username, password };
-            localStorage.setItem(email, JSON.stringify(user));
-            alert('Sign up successful! You can now log in.');
-            $('#signupModal').hide();
-            $('#loginModal').show();
-        }
-    });
-
-    // Handle review submission
-    $('#submitReview').click(function() {
-        const review = $('#reviewText').val();
-        if (review) {
-            $('#reviews').append('<p>' + review + '</p>');
-            $('#reviewText').val('');
-        } else {
-            alert("Please enter a review.");
-        }
-    });
-});
-$(document).ready(function() {
-    // Function to validate email format
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
+    // Profile Image Persistence
+    const savedImage = localStorage.getItem('userProfileImage');
+    if (savedImage) {
+        $('#userImage').attr('src', savedImage);
     }
 
-    // Open login modal when clicking on login button
-    $('#loginButton').click(function() {
-        $('#loginModal').show();
-    });
+    // Status Persistence
+    const savedStatus = localStorage.getItem('userStatus');
+    if (savedStatus) {
+        $('#profileButton').append(` (${savedStatus})`);
+    }
 
-    // Open signup modal when clicking on register button
-    $('#registerButton').click(function() {
-        $('#signupModal').show();
-    });
-
-    // Close modals when clicking the close button
-    $('.close').click(function() {
-        $(this).closest('.modal').hide();
-    });
-
-    // Switch to Signup modal from Login modal
-    $('#showSignup').click(function() {
-        $('#loginModal').hide();
-        $('#signupModal').show();
-    });
-
-    // Switch to Login modal from Signup modal
-    $('#showLogin').click(function() {
-        $('#signupModal').hide();
-        $('#loginModal').show();
-    });
-
-    // Login form validation and submission
-    $('#loginSubmit').click(function() {
-        const email = $('#loginEmail').val();
-        const password = $('#loginPassword').val();
-        const user = JSON.parse(localStorage.getItem(email));
-
-        if (!validateEmail(email)) {
-            $('#loginError').show().text('Invalid email format.');
-        } else if (password.length < 6) {
-            $('#loginError').show().text('Password must be at least 6 characters.');
-        } else if (user && user.password === password) {
-            alert('Login successful!');
-            $('#loginError').hide();
-            $('#loginModal').hide();
+    // Save Profile Image
+    $('#saveProfileImage').click(function() {
+        const newImage = $('#newProfileImage').prop('files')[0];
+        if (newImage) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                localStorage.setItem('userProfileImage', e.target.result);
+                $('#userImage').attr('src', e.target.result);
+                alert('Profile picture updated successfully!');
+            };
+            reader.readAsDataURL(newImage);
+            $('#updateImageModal').hide();
         } else {
-            $('#loginError').show().text('Invalid email or password.');
+            alert('Please select an image.');
         }
     });
 
-    // Sign-up form validation and submission
+    // Save Status
+    $('#saveStatus').click(function() {
+        const newStatus = $('#newStatus').val();
+        if (newStatus) {
+            localStorage.setItem('userStatus', newStatus);
+            alert('Status updated to: ' + newStatus);
+            $('#updateStatusModal').hide();
+        } else {
+            alert('Please enter a status.');
+        }
+    });
+
+    // User Registration - Local Storage for user data
     $('#signupSubmit').click(function() {
         const email = $('#signupEmail').val();
         const username = $('#signupUsername').val();
         const password = $('#signupPassword').val();
 
-        if (!validateEmail(email)) {
-            $('#signupError').show().text('Invalid email format.');
-        } else if (username === '') {
-            $('#signupError').show().text('Username cannot be empty.');
-        } else if (password.length < 6) {
-            $('#signupError').show().text('Password must be at least 6 characters.');
-        } else if (localStorage.getItem(email)) {
-            $('#signupError').show().text('Email already exists. Please log in.');
-        } else {
-            const user = { username, password };
-            localStorage.setItem(email, JSON.stringify(user));
-            alert('Sign up successful! You can now log in.');
-            $('#signupError').hide();
+        if (email && username && password.length >= 8) {
+            const user = { email, username, password };
+            localStorage.setItem('user', JSON.stringify(user));
+            alert('Registration successful!');
             $('#signupModal').hide();
-            $('#loginModal').show();
-        }
-    });
-
-    // Handle review submission
-    $('#submitReview').click(function() {
-        const review = $('#reviewText').val();
-        if (review) {
-            $('#reviews').append('<p>' + review + '</p>');
-            $('#reviewText').val('');
         } else {
-            alert("Please enter a review.");
+            $('#signupError').show();
         }
     });
 
-    // Handle logout
-    $('#logoutButton').click(function() {
-        localStorage.removeItem('currentUser');
-        alert('You have logged out.');
-        $('#logoutButton').hide();
+    // User Login
+    $('#loginSubmit').click(function() {
+        const email = $('#loginEmail').val();
+        const password = $('#loginPassword').val();
+        const rememberMe = $('#rememberMe').is(':checked');
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+
+        if (storedUser && storedUser.email === email && storedUser.password === password) {
+            alert('Login successful!');
+            if (rememberMe) {
+                localStorage.setItem('currentUser', JSON.stringify(storedUser));
+            }
+            $('#loginModal').hide();
+            $('#loginButton').hide();
+            $('#registerButton').hide();
+            $('#usernameDisplay').text(storedUser.username);
+        } else {
+            $('#loginError').show();
+        }
     });
 
-    // Check if user is already logged in
-    const currentUser = localStorage.getItem('currentUser');
+    // Logout - Functionality moved to profile dropdown
+    $('#logoutProfileOption').click(function() {
+        localStorage.removeItem('currentUser');
+        alert('Logged out successfully!');
+        $('#loginButton').show();
+        $('#registerButton').show();
+        $('#usernameDisplay').text('Username');
+        window.location.reload(); // Optional: Reload the page after logout
+    });
+
+    // Show/Hide modals
+    $('#loginButton').click(function() {
+        $('#loginModal').show();
+    });
+
+    $('#registerButton').click(function() {
+        $('#signupModal').show();
+    });
+
+    $('.close').click(function() {
+        $(this).closest('.modal').hide();
+    });
+
+    // Restore logged-in state if "Remember Me" was selected
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser) {
-        $('#logoutButton').show(); // Show the logout button if logged in
+        $('#loginButton').hide();
+        $('#registerButton').hide();
+        $('#usernameDisplay').text(currentUser.username);
     }
 });
