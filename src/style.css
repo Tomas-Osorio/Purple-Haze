@@ -1,0 +1,160 @@
+body {
+    background-color: #FFE5B4; /* Light orange background */
+    color: #4A4A4A; /* Dark gray text */
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+#mainWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #FF8C00; /* Dark orange header */
+    color: #FFF;
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+button {
+    background-color: #FFA500; /* Orange buttons */
+    color: #FFF;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #FF7F00; /* Darker orange on hover */
+}
+
+.reviews {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.reviewCard {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #FFA500;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+}
+
+.reviewCard img {
+    max-width: 100%; /* Restrict image width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* Higher z-index to stay above footer */
+}
+
+.modal-content {
+    background-color: #FFE5B4; /* Light orange for modals */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #FF8C00; /* Dark orange dropdown */
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    color: #FFF;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #FF7F00;
+}
+
+.reviewCard img {
+    max-width: 200px; /* Set maximum width for review images */
+    height: auto;
+}
+
+
+
+#mainWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
+    margin: 82px; /* Add margin to the main wrapper */
+    background-color: #fff; /* White background for the main content */
+}
+
+
+/* Add search bar styles */
+.searchBar {
+    margin: 0px;
+    display: flex;
+}
+
+.searchBar input {
+    padding: 10px;
+    border: 1px solid #AB968E;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.searchBar button {
+    padding: 10px;
+    background-color: #AB968E;
+    color: #F7D9CD;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+
+footer {
+    background-color: rgb(42, 44, 50); /* Dark orange background */
+    color: #FFF;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: auto; /* Ensure it stays at the bottom */
+    width: 100%;
+    position: relative; /* Change from absolute to relative */
+    z-index: 1; /* Lower z-index than modal */
+}
