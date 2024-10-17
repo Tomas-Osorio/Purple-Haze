@@ -53,7 +53,8 @@ const App = () => {
                     <Link to="/posted-reviews">
                         <button>Posted Reviews</button>
                     </Link>
-                    <ReviewFormContainer onAddReview={handleAddReview} />
+                    
+                    <ReviewFormContainer onAddReview={handleAddReview} currentUser={currentUser} />
                     <Link to="/about-us">
                         <button>About Us</button>
                     </Link>

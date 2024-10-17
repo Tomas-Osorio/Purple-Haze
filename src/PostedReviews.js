@@ -30,6 +30,7 @@ const PostedReviews = ({ reviews }) => {
                     <option value="Action">Action</option>
                     <option value="Drama">Drama</option>
                     <option value="Comedy">Comedy</option>
+                    <option value="Horror">Horror</option>
                 </select>
             </div>
             <div className="reviews">
@@ -39,6 +40,7 @@ const PostedReviews = ({ reviews }) => {
                         <h3>{review.title}</h3>
                         <p>Genre: {review.genre}</p>
                         <p>Rating: {review.rating}/10</p>
+                        <p>By: {review.username}</p>
                     </div>
                 ))}
             </div>

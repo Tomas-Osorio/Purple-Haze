@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReviewForm from './ReviewForm';
 
-const ReviewFormContainer = ({ onAddReview }) => {
+const ReviewFormContainer = ({ onAddReview, currentUser }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOpen = () => setIsOpen(true);
@@ -16,7 +16,11 @@ const ReviewFormContainer = ({ onAddReview }) => {
         <div>
             <button onClick={handleOpen}>Create Review</button>
             {isOpen && (
-                <ReviewForm onClose={handleClose} onAddReview={handleAddReview} />
+                <ReviewForm 
+                    onClose={handleClose} 
+                    onAddReview={handleAddReview} 
+                    currentUser={currentUser} // Pass currentUser here
+                />
             )}
         </div>
     );

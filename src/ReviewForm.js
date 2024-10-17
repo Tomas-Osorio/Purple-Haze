@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const ReviewForm = ({ onClose, onAddReview }) => {
+const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
     const [image, setImage] = useState('');
     const [title, setTitle] = useState('');
-    const [genre, setGenre] = useState('');
+    const [genre, setGenre] = useState('Action'); // Default genre
     const [rating, setRating] = useState('');
+
+    const genres = ['Action', 'Drama', 'Comedy', 'Horror']; // Define available genres
 
     const fetchMovieImage = async (title) => {
         const apiKey = 'e845651629ccba8e1cfc92622401198b'; // Replace with your TMDb API key
@@ -22,7 +24,7 @@ const ReviewForm = ({ onClose, onAddReview }) => {
     };
 
     const handleSubmit = () => {
-        const review = { image, title, genre, rating };
+        const review = { image, title, genre, rating, username: currentUser?.username }; // Include username in review object
         onAddReview(review);
         onClose();
     };
@@ -48,7 +50,11 @@ const ReviewForm = ({ onClose, onAddReview }) => {
                     onChange={handleTitleChange} 
                 />
                 <input type="text" value={image} readOnly placeholder="Image URL" />
-                <input type="text" placeholder="Genre" onChange={(e) => setGenre(e.target.value)} />
+                <select value={genre} onChange={(e) => setGenre(e.target.value)}>
+                    {genres.map((g) => (
+                        <option key={g} value={g}>{g}</option>
+                    ))}
+                </select>
                 <input type="number" placeholder="Rating (out of 10)" onChange={(e) => setRating(e.target.value)} />
                 <button onClick={handleSubmit}>Submit Review</button>
             </div>
