@@ -1,5 +1,5 @@
 body {
-    background-color: #FFE5B4; /* Light orange background */
+    background-color: #fff5e1; /* Light orange background */
     color: #4A4A4A; /* Dark gray text */
     font-family: Arial, sans-serif;
     margin: 0;
@@ -8,7 +8,9 @@ body {
 #mainWrapper {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 90vh;
+    margin: 82px; /* Add margin to the main wrapper */
+    background-color: #fff; /* White background for the main content */
 }
 
 header {
@@ -33,6 +35,7 @@ button:hover {
 }
 
 .reviews {
+    margin-left: 4vh;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -80,7 +83,7 @@ button:hover {
     margin: 10px 0;
 }
 
-.dropdown {
+/* .dropdown {
     position: relative;
     display: inline-block;
 }
@@ -88,7 +91,7 @@ button:hover {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #FF8C00; /* Dark orange dropdown */
+    background-color: #FF8C00;
     z-index: 1;
 }
 
@@ -105,47 +108,36 @@ button:hover {
 
 .dropdown-content a:hover {
     background-color: #FF7F00;
-}
+} */
 
-.reviewCard img {
-    max-width: 200px; /* Set maximum width for review images */
-    height: auto;
-}
-
-
-
-#mainWrapper {
+.filterContainer {
     display: flex;
-    flex-direction: column;
-    min-height: 90vh;
-    margin: 82px; /* Add margin to the main wrapper */
-    background-color: #fff; /* White background for the main content */
+    align-items: center;
+    margin-bottom: 20px;
 }
 
+.searchInput {
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-left: 20vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 600px; /* Adjust width as needed */
+}
+
+.genreSelect {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
 /* Add search bar styles */
 .searchBar {
     margin: 0px;
     display: flex;
 }
-
-.searchBar input {
-    padding: 10px;
-    border: 1px solid #AB968E;
-    border-radius: 4px;
-    width: 100%;
-}
-
-.searchBar button {
-    padding: 10px;
-    background-color: #AB968E;
-    color: #F7D9CD;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 5px;
-}
-
 
 footer {
     background-color: rgb(42, 44, 50); /* Dark orange background */
