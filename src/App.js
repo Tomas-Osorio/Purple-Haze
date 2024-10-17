@@ -7,12 +7,7 @@ import PostedReviews from './PostedReviews';
 import './style.css';
 
 const App = () => {
-    const [reviews, setReviews] = useState([
-        { title: "Inception", genre: "Action", rating: 9, image: "https://image.tmdb.org/t/p/w500/inception.jpg" },
-        { title: "The Godfather", genre: "Drama", rating: 10, image: "https://image.tmdb.org/t/p/w500/godfather.jpg" },
-        { title: "The Hangover", genre: "Comedy", rating: 8, image: "https://image.tmdb.org/t/p/w500/hangover.jpg" },
-        { title: "The Dark Knight", genre: "Action", rating: 9.5, image: "https://image.tmdb.org/t/p/w500/dark_knight.jpg" },
-    ]);
+    const [reviews, setReviews] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
     const [showLogin, setShowLogin] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
