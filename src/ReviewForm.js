@@ -6,6 +6,7 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
     const [title, setTitle] = useState('');
     const [genre, setGenre] = useState('Action'); // Default genre
     const [rating, setRating] = useState('');
+    const [movieId, setMovieId] = useState(null); // State for storing the movie ID
 
     const genres = ['Action', 'Drama', 'Comedy', 'Horror']; // Define available genres
 
@@ -17,6 +18,7 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
             if (firstResult) {
                 const imageUrl = `https://image.tmdb.org/t/p/w500${firstResult.poster_path}`;
                 setImage(imageUrl);
+                setMovieId(firstResult.id); // Save the movie ID
             }
         } catch (error) {
             console.error('Error fetching movie data:', error);
@@ -24,7 +26,7 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
     };
 
     const handleSubmit = () => {
-        const review = { image, title, genre, rating, username: currentUser?.username }; // Include username in review object
+        const review = { image, title, genre, rating, username: currentUser?.username, movieId }; // Include username in review object
         onAddReview(review);
         onClose();
     };
@@ -36,6 +38,7 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
             fetchMovieImage(newTitle);
         } else {
             setImage(''); // Clear image if title is empty
+            setMovieId(null); // Clear movie ID if title is empty
         }
     };
 

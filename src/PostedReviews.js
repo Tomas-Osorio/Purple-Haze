@@ -41,6 +41,7 @@ const PostedReviews = ({ reviews }) => {
                         <p>Genre: {review.genre}</p>
                         <p>Rating: {review.rating}/10</p>
                         <p>By: {review.username}</p>
+                        <p>Movie ID: {review.movieId}</p>
                     </div>
                 ))}
             </div>
