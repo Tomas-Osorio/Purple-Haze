@@ -12,7 +12,7 @@ const PostedReviews = ({ reviews }) => {
 
     return (
         <section>
-            <h2>Posted Reviews</h2>
+            <h2 class="category-title">Posted Reviews</h2>
             <div className="filterContainer">
                 <input 
                     type="text" 

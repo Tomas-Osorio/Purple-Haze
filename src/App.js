@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import ReviewFormContainer from './ReviewFormContainer';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './Navbar'; // Import the Navbar
 import LoginModal from './LoginModal';
 import SignupModal from './SignupModal';
 import PostedReviews from './PostedReviews'; 
@@ -41,25 +41,16 @@ const App = () => {
     return (
         <Router>
             <div id="mainWrapper">
-                <header>
-                    <Link to="/">
-                        <button>Home</button>
-                    </Link>
-                    <Link to="/posted-reviews">
-                        <button>Posted Reviews</button>
-                    </Link>
-                    
-                    <ReviewFormContainer onAddReview={handleAddReview} currentUser={currentUser} />
-                    <Link to="/about-us">
-                        <button>About Us</button>
-                    </Link>
-                    <button onClick={() => setShowLogin(true)}>Login</button>
-                    <button onClick={() => setShowSignup(true)}>Sign Up</button>
-                </header>
+                <Navbar 
+                    onAddReview={handleAddReview} 
+                    currentUser={currentUser} 
+                    setShowLogin={setShowLogin} 
+                    setShowSignup={setShowSignup} 
+                />
 
                 <Routes>
                     <Route path="/about-us" element={<section>
-                        <h2>About Us</h2>
+                        <h2 className="category-title">About Us</h2>
                         <p>
                             Peliculonas is your go-to platform for sharing and discovering movie reviews. 
                             Whether you're looking for the latest action flick or a heartwarming drama, 
@@ -68,7 +59,7 @@ const App = () => {
                         </p>
                     </section>} />
                     <Route path="/" element={<section>
-                        <h2>Welcome to Peliculonas</h2>
+                        <h2 className="category-title">Welcome to Peliculonas</h2>
                         <p>Your favorite movie reviews, all in one place!</p>
                     </section>} />
                     <Route path="/posted-reviews" element={<PostedReviews reviews={reviews} />} />
