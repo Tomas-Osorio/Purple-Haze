@@ -131,7 +131,7 @@ button:hover {
     margin-left: 8vh;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 92vh; /* Adjust width as needed */
+    width: 85vh; /* Adjust width as needed */
 }
 
 .genreSelect {
