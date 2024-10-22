@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './Navbar'; // Import the Navbar
+import Navbar from './Navbar'; 
 import LoginModal from './LoginModal';
 import SignupModal from './SignupModal';
 import PostedReviews from './PostedReviews'; 
@@ -31,11 +31,12 @@ const App = () => {
     };
 
     const handleAddReview = (review) => {
+        console.log('Reviews:', reviews); // Debugging line
         if (!currentUser) {
             alert('You must be logged in to create a review.');
             return;
         }
-        setReviews([...reviews, review]);
+        setReviews((prevReviews) => [...prevReviews, review]); // Ensure you're using the functional update
     };
 
     return (
