@@ -1,5 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
+// Componente de selección de género personalizado
+const GenreSelect = ({ selectedGenre, setSelectedGenre }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const genres = [
+        "All", "Action", "Adventure", "Animation", "Comedy", 
+        "Crime", "Documentary", "Drama", "Family", "Fantasy", 
+        "History", "Horror", "Music", "Mystery", "Romance", 
+        "Science Fiction", "TV Movie", "Thriller", "War", "Western"
+    ];
+
+    const selectRef = useRef();
+
+    const toggleDropdown = () => setIsOpen(!isOpen);
+
+    const handleSelect = (genre) => {
+        setSelectedGenre(genre);
+        setIsOpen(false);
+    };
+
+    const handleClickOutside = (event) => {
+        if (selectRef.current && !selectRef.current.contains(event.target)) {
+            setIsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            window.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    return (
+        <div className="custom-select" ref={selectRef}>
+            <div className="selected" onClick={toggleDropdown}>
+                {selectedGenre || "Select Genre"}
+            </div>
+            {isOpen && (
+                <ul className="dropdown-list">
+                    {genres.map((genre) => (
+                        <li key={genre} onClick={() => handleSelect(genre)}>
+                            {genre}
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
+};
+
+// Componente principal de reseñas publicadas
 const PostedReviews = ({ reviews }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedGenre, setSelectedGenre] = useState('All');
@@ -12,7 +63,7 @@ const PostedReviews = ({ reviews }) => {
 
     return (
         <section>
-            <h2 class="category-title">Posted Reviews</h2>
+            <h2 className="category-title">Posted Reviews</h2>
             <div className="filterContainer">
                 <input 
                     type="text" 
@@ -21,32 +72,10 @@ const PostedReviews = ({ reviews }) => {
                     value={searchTerm} 
                     onChange={(e) => setSearchTerm(e.target.value)} 
                 />
-                <select 
-                    className="genreSelect" 
-                    value={selectedGenre} 
-                    onChange={(e) => setSelectedGenre(e.target.value)}
-                >
-                    <option value="All">All</option>
-                    <option value="Action">Action</option>
-                    <option value="Adventure">Adventure</option>
-                    <option value="Animation">Animation</option>
-                    <option value="Comedy">Comedy</option>
-                    <option value="Crime">Crime</option>
-                    <option value="Documentary">Documentary</option>
-                    <option value="Drama">Drama</option>
-                    <option value="Family">Family</option>
-                    <option value="Fantasy">Fantasy</option>
-                    <option value="History">History</option>
-                    <option value="Horror">Horror</option>
-                    <option value="Music">Music</option>
-                    <option value="Mystery">Mystery</option>
-                    <option value="Romance">Romance</option>
-                    <option value="Science Fiction">Science Fiction</option>
-                    <option value="TV Movie">TV Movie</option>
-                    <option value="Thriller">Thriller</option>
-                    <option value="War">War</option>
-                    <option value="Western">Western</option>
-                </select>
+                <GenreSelect 
+                    selectedGenre={selectedGenre} 
+                    setSelectedGenre={setSelectedGenre} 
+                />
             </div>
             <div className="reviews">
                 {filteredReviews.map((review, index) => (

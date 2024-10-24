@@ -31,12 +31,12 @@ const App = () => {
     };
 
     const handleAddReview = (review) => {
-        console.log('Reviews:', reviews);
+        console.log('Reviews:', reviews); // Debugging line
         if (!currentUser) {
             alert('You must be logged in to create a review.');
             return;
         }
-        setReviews((prevReviews) => [...prevReviews, review]);
+        setReviews((prevReviews) => [...prevReviews, review]); // Ensure you're using the functional update
     };
 
     return (
@@ -47,6 +47,7 @@ const App = () => {
                     currentUser={currentUser} 
                     setShowLogin={setShowLogin} 
                     setShowSignup={setShowSignup} 
+                    onLogout={handleLogout} 
                 />
 
                 <Routes>

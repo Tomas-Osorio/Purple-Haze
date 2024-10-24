@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
@@ -8,6 +8,7 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
     const [rating, setRating] = useState('');
     const [movieId, setMovieId] = useState(null);
     const [genres, setGenres] = useState({}); 
+    const modalRef = useRef(); // Crea una referencia para el modal
 
     useEffect(() => {
         const fetchGenres = async () => {
@@ -38,7 +39,6 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
                 setImage(imageUrl);
                 setMovieId(firstResult.id);
 
-                
                 if (firstResult.genre_ids && firstResult.genre_ids.length > 0) {
                     const firstGenreId = firstResult.genre_ids[0];
                     const genreName = genres[firstGenreId] || 'Unknown'; 
@@ -72,9 +72,23 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
         }
     };
 
+    // Maneja clics fuera del modal
+    const handleClickOutside = (event) => {
+        if (modalRef.current && !modalRef.current.contains(event.target)) {
+            onClose();
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            window.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <div className="modal">
-            <div className="modal-content">
+            <div className="modal-content" ref={modalRef}>
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>Create Review</h2>
                 <input 

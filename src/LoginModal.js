@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
 
 const LoginModal = ({ onClose, onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const modalRef = useRef(); 
 
     const handleSubmit = () => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -16,9 +17,23 @@ const LoginModal = ({ onClose, onLogin }) => {
         }
     };
 
+    
+    const handleClickOutside = (event) => {
+        if (modalRef.current && !modalRef.current.contains(event.target)) {
+            onClose();
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            window.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <div className="modal">
-            <div className="modal-content">
+            <div className="modal-content" ref={modalRef}>
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>Login</h2>
                 <input 

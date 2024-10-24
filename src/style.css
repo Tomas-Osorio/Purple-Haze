@@ -16,14 +16,6 @@ body {
     background-color: #fff; /* White background for the main content */
 }
 
-header {
-    background-color: #FF8C00; /* Dark orange header */
-    color: #FFF;
-    display: flex;
-    justify-content: space-between;
-    padding: 30px;
-}
-
 button {
     background-color: #FFA500; /* Orange buttons */
     font-family: 'Arial', sans-serif;
@@ -39,8 +31,38 @@ button:hover {
     background-color: #FF7F00; /* Darker orange on hover */
 }
 
+.close {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Espacio entre los elementos */
+    align-items: center; /* Centra verticalmente los elementos */
+    padding: 30px; /* Espaciado interno */
+    background-color: #FF8C00; /* Color de fondo */
+}
+
+.left-buttons {
+    display: flex;
+    gap: 15px; /* Espacio entre los botones de la izquierda */
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 15px; /* Espacio entre los botones de la derecha */
+}
+
+.right-button {
+    margin-left: 10px; /* Espacio adicional a la izquierda de cada botón */
+}
+
+
 .reviews {
-    margin-left: 5vh;
+    justify-content: center;
+    margin-left: 0vh;
+    margin-right: 0vh;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -52,7 +74,7 @@ button:hover {
     padding: 15px;
     border: 1px solid #FFA500;
     border-radius: 5px;
-    width: 200px;
+    width: 20vh;
     text-align: center;
 }
 
@@ -135,28 +157,21 @@ button:hover {
     }
 }
 
-
 .filterContainer {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
+    margin-left: 12vh;
+    margin-right: 12vh;
 }
 
 .searchInput {
     padding: 10px;
     font-size: 16px;
-    margin-right: 3vh;
-    margin-left: 8vh;
+    margin-right: 3vh; 
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 85vh; /* Adjust width as needed */
-}
-
-.genreSelect {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 78vh; 
 }
 
 /* Add search bar styles */
@@ -193,4 +208,40 @@ footer {
     width: 4px; /* Line thickness */
     background-color: #db4437; /* Red color */
     transform: translateY(-50%); /* Center vertically */
+}
+
+.custom-select {
+    position: relative;
+    width: 17vh; /* Ajusta el ancho según sea necesario */
+}
+
+.selected {
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.dropdown-list {
+    max-height: 150px; /* Altura máxima para el scroll */
+    overflow-y: auto; /* Habilita el scroll */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    position: absolute;
+    width: 100%;
+    z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+    background-color: white;
+}
+
+.dropdown-list li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown-list li:hover {
+    background-color: #f0f0f0; /* Color de fondo al pasar el mouse */
 }
