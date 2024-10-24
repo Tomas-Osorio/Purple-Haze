@@ -4,14 +4,14 @@ import axios from 'axios';
 const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
     const [image, setImage] = useState('');
     const [title, setTitle] = useState('');
-    const [genre, setGenre] = useState(''); // Start as empty
+    const [genre, setGenre] = useState(''); 
     const [rating, setRating] = useState('');
     const [movieId, setMovieId] = useState(null);
-    const [genres, setGenres] = useState({}); // State to hold genre mapping
+    const [genres, setGenres] = useState({}); 
 
     useEffect(() => {
         const fetchGenres = async () => {
-            const apiKey = 'e845651629ccba8e1cfc92622401198b'; // Replace with your TMDb API key
+            const apiKey = 'e845651629ccba8e1cfc92622401198b'; 
             try {
                 const response = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`);
                 const genreList = response.data.genres;
@@ -19,17 +19,17 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
                     acc[genre.id] = genre.name;
                     return acc;
                 }, {});
-                setGenres(genreMapping); // Store the mapping in state
+                setGenres(genreMapping); 
             } catch (error) {
                 console.error('Error fetching genre list:', error);
             }
         };
 
-        fetchGenres(); // Fetch genres when the component mounts
+        fetchGenres(); 
     }, []);
 
     const fetchMovieData = async (title) => {
-        const apiKey = 'e845651629ccba8e1cfc92622401198b'; // Replace with your TMDb API key
+        const apiKey = 'e845651629ccba8e1cfc92622401198b'; 
         try {
             const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${title}`);
             const firstResult = response.data.results[0];
@@ -38,13 +38,13 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
                 setImage(imageUrl);
                 setMovieId(firstResult.id);
 
-                // Map genre IDs to names using the fetched genres
+                
                 if (firstResult.genre_ids && firstResult.genre_ids.length > 0) {
                     const firstGenreId = firstResult.genre_ids[0];
-                    const genreName = genres[firstGenreId] || 'Unknown'; // Use fetched genres
+                    const genreName = genres[firstGenreId] || 'Unknown'; 
                     setGenre(genreName);
                 } else {
-                    setGenre('Unknown'); // Default if no genre found
+                    setGenre('Unknown'); 
                 }
             } else {
                 console.error('No results found for the given title');
@@ -64,11 +64,11 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
         const newTitle = e.target.value;
         setTitle(newTitle);
         if (newTitle) {
-            fetchMovieData(newTitle); // Fetch movie data based on the title
+            fetchMovieData(newTitle); 
         } else {
             setImage(''); 
             setMovieId(null); 
-            setGenre(''); // Reset genre when title is cleared
+            setGenre(''); 
         }
     };
 

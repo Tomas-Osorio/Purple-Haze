@@ -9,9 +9,9 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 90vh;
-    margin-top: 82px;
-    margin-left: 82px;
-    margin-right: 82px;
+    margin-top: 11vh;
+    margin-left: 9.5vh;
+    margin-right: 9.5vh;
     /*margin: 82px;  Add margin to the main wrapper */
     background-color: #fff; /* White background for the main content */
 }
@@ -81,8 +81,26 @@ button:hover {
     border-radius: 10px; /* More rounded corners */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow */
     position: relative;
-    max-width: 400px; /* Limit the width for better readability */
+    max-width: 35vh; /* Limit the width for better readability */
     animation: fadeIn 0.3s ease; /* Fade-in animation */
+}
+
+.password-icon {
+    position: absolute;
+    right: 5vh;  
+    top: 66.8%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666; 
+}
+
+.password-icon2 {
+    position: absolute;
+    right: 5vh;  
+    top: 72.5%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666; 
 }
 
 .modal-content h2 {
@@ -154,6 +172,7 @@ footer {
     padding-top: 20px;
     padding-bottom: 20px;
     margin-top: auto; /* Ensure it stays at the bottom */
+    margin-bottom: 2vh;
     width: 100%;
     position: relative; /* Change from absolute to relative */
     z-index: 1; /* Lower z-index than modal */

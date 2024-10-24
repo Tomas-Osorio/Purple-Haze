@@ -19,7 +19,7 @@ const ReviewFormContainer = ({ onAddReview, currentUser }) => {
                 <ReviewForm 
                     onClose={handleClose} 
                     onAddReview={handleAddReview} 
-                    currentUser={currentUser} // Pass currentUser here
+                    currentUser={currentUser} 
                 />
             )}
         </div>

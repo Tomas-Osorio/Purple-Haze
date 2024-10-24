@@ -31,12 +31,12 @@ const App = () => {
     };
 
     const handleAddReview = (review) => {
-        console.log('Reviews:', reviews); // Debugging line
+        console.log('Reviews:', reviews);
         if (!currentUser) {
             alert('You must be logged in to create a review.');
             return;
         }
-        setReviews((prevReviews) => [...prevReviews, review]); // Ensure you're using the functional update
+        setReviews((prevReviews) => [...prevReviews, review]);
     };
 
     return (

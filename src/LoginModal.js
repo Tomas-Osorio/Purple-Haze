@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; 
 
 const LoginModal = ({ onClose, onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = () => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -19,8 +21,19 @@ const LoginModal = ({ onClose, onLogin }) => {
             <div className="modal-content">
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>Login</h2>
-                <input type="text" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                <input 
+                    type="text" 
+                    placeholder="Email" 
+                    onChange={(e) => setEmail(e.target.value)} 
+                />
+                <input 
+                    type={showPassword ? 'text' : 'password'} 
+                    placeholder="Password" 
+                    onChange={(e) => setPassword(e.target.value)} 
+                />
+                <span className="password-icon" onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
                 <button onClick={handleSubmit}>Login</button>
             </div>
         </div>
