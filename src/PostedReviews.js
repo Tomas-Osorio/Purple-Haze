@@ -1,6 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef  } from 'react';
+import ReviewsCarousel from './ReviewsCarousel';
+import { createClient } from '@supabase/supabase-js';
+import ReviewForm from './ReviewForm'; 
 
-// Componente de selección de género personalizado
+const supabaseUrl = 'https://svkdacbyzmnptyglxixv.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2a2RhY2J5em1ucHR5Z2x4aXh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAyMzY2MjcsImV4cCI6MjA0NTgxMjYyN30.IrgYEf2uS_NB57a1H1ZbtdZAYLPiSd153JHccz6Yhdc';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 const GenreSelect = ({ selectedGenre, setSelectedGenre }) => {
     const [isOpen, setIsOpen] = useState(false);
     const genres = [
@@ -50,10 +56,26 @@ const GenreSelect = ({ selectedGenre, setSelectedGenre }) => {
     );
 };
 
-// Componente principal de reseñas publicadas
-const PostedReviews = ({ reviews }) => {
+const PostedReviews = ({ onAddReview }) => {
+    const [reviews, setReviews] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedGenre, setSelectedGenre] = useState('All');
+
+    const fetchReviews = async () => {
+        const { data, error } = await supabase
+            .from('reviews')
+            .select('*');
+        
+        if (error) {
+            console.error("Error fetching reviews:", error);
+        } else {
+            setReviews(data);
+        }
+    };
+
+    useEffect(() => {
+        fetchReviews();
+    }, []);
 
     const filteredReviews = reviews.filter(review => {
         const matchesGenre = selectedGenre === 'All' || review.genre === selectedGenre;
@@ -77,6 +99,7 @@ const PostedReviews = ({ reviews }) => {
                     setSelectedGenre={setSelectedGenre} 
                 />
             </div>
+            
             <div className="reviews">
                 {filteredReviews.map((review, index) => (
                     <div key={index} className="reviewCard">
@@ -85,7 +108,7 @@ const PostedReviews = ({ reviews }) => {
                         <p>Genre: {review.genre}</p>
                         <p>Rating: {review.rating}/10</p>
                         <p>By: {review.username}</p>
-                        <p>Movie ID: {review.movieId}</p>
+                        <p>Movie ID: {review.movie_id}</p>
                     </div>
                 ))}
             </div>

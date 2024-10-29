@@ -1,23 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { createClient } from '@supabase/supabase-js'; // Import Supabase client
 import Navbar from './Navbar'; 
 import LoginModal from './LoginModal';
 import SignupModal from './SignupModal';
 import PostedReviews from './PostedReviews'; 
+import ReviewForm from './ReviewForm'; 
+import ReviewsCarousel from './ReviewsCarousel';
 import './style.css';
+
+const supabaseUrl = 'https://svkdacbyzmnptyglxixv.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2a2RhY2J5em1ucHR5Z2x4aXh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAyMzY2MjcsImV4cCI6MjA0NTgxMjYyN30.IrgYEf2uS_NB57a1H1ZbtdZAYLPiSd153JHccz6Yhdc';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const App = () => {
     const [reviews, setReviews] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
     const [showLogin, setShowLogin] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
+    const [showReviewForm, setShowReviewForm] = useState(false); 
 
     useEffect(() => {
         const savedUser = JSON.parse(localStorage.getItem('currentUser'));
         if (savedUser) {
             setCurrentUser(savedUser);
         }
+        fetchReviews(); 
     }, []);
+
+  
+    const fetchReviews = async () => {
+        const { data, error } = await supabase.from('reviews').select('*');
+        if (error) {
+            console.error("Error fetching reviews:", error);
+        } else {
+            setReviews(data);
+        }
+    };
 
     const handleLogin = (user) => {
         setCurrentUser(user);
@@ -30,20 +49,21 @@ const App = () => {
         localStorage.removeItem('currentUser');
     };
 
-    const handleAddReview = (review) => {
-        console.log('Reviews:', reviews); // Debugging line
+    const handleAddReview = (newReview) => {
         if (!currentUser) {
             alert('You must be logged in to create a review.');
             return;
         }
-        setReviews((prevReviews) => [...prevReviews, review]); // Ensure you're using the functional update
+       
+        setReviews((prevReviews) => [...prevReviews, newReview]);
+        fetchReviews(); 
     };
 
     return (
         <Router>
             <div id="mainWrapper">
                 <Navbar 
-                    onAddReview={handleAddReview} 
+                    onAddReview={() => setShowReviewForm(true)} 
                     currentUser={currentUser} 
                     setShowLogin={setShowLogin} 
                     setShowSignup={setShowSignup} 
@@ -63,12 +83,21 @@ const App = () => {
                     <Route path="/" element={<section>
                         <h2 className="category-title">Welcome to Peliculonas</h2>
                         <p>Your favorite movie reviews, all in one place!</p>
+                        <ReviewsCarousel reviews={reviews} />
                     </section>} />
                     <Route path="/posted-reviews" element={<PostedReviews reviews={reviews} />} />
                 </Routes>
 
                 {showLogin && <LoginModal onClose={() => setShowLogin(false)} onLogin={handleLogin} />}
                 {showSignup && <SignupModal onClose={() => setShowSignup(false)} onLogin={handleLogin} />}
+                
+                {showReviewForm && (
+                    <ReviewForm
+                        onClose={() => setShowReviewForm(false)} 
+                        onAddReview={handleAddReview}
+                        currentUser={currentUser} 
+                    />
+                )}
 
                 <footer>
                     <p>&copy; 2024 Peliculonas. All rights reserved.</p>

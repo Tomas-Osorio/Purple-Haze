@@ -1,18 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = 'https://svkdacbyzmnptyglxixv.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN2a2RhY2J5em1ucHR5Z2x4aXh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzAyMzY2MjcsImV4cCI6MjA0NTgxMjYyN30.IrgYEf2uS_NB57a1H1ZbtdZAYLPiSd153JHccz6Yhdc';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
     const [image, setImage] = useState('');
     const [title, setTitle] = useState('');
-    const [genre, setGenre] = useState(''); 
+    const [genre, setGenre] = useState('');
     const [rating, setRating] = useState('');
     const [movieId, setMovieId] = useState(null);
-    const [genres, setGenres] = useState({}); 
-    const modalRef = useRef(); // Crea una referencia para el modal
+    const [genres, setGenres] = useState({});
+    const modalRef = useRef();
 
     useEffect(() => {
         const fetchGenres = async () => {
-            const apiKey = 'e845651629ccba8e1cfc92622401198b'; 
+            const apiKey = 'e845651629ccba8e1cfc92622401198b';
             try {
                 const response = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`);
                 const genreList = response.data.genres;
@@ -20,17 +25,17 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
                     acc[genre.id] = genre.name;
                     return acc;
                 }, {});
-                setGenres(genreMapping); 
+                setGenres(genreMapping);
             } catch (error) {
                 console.error('Error fetching genre list:', error);
             }
         };
 
-        fetchGenres(); 
+        fetchGenres();
     }, []);
 
     const fetchMovieData = async (title) => {
-        const apiKey = 'e845651629ccba8e1cfc92622401198b'; 
+        const apiKey = 'e845651629ccba8e1cfc92622401198b';
         try {
             const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${title}`);
             const firstResult = response.data.results[0];
@@ -41,10 +46,10 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
 
                 if (firstResult.genre_ids && firstResult.genre_ids.length > 0) {
                     const firstGenreId = firstResult.genre_ids[0];
-                    const genreName = genres[firstGenreId] || 'Unknown'; 
+                    const genreName = genres[firstGenreId] || 'Unknown';
                     setGenre(genreName);
                 } else {
-                    setGenre('Unknown'); 
+                    setGenre('Unknown');
                 }
             } else {
                 console.error('No results found for the given title');
@@ -54,25 +59,43 @@ const ReviewForm = ({ onClose, onAddReview, currentUser }) => {
         }
     };
 
-    const handleSubmit = () => {
-        const review = { image, title, genre, rating, username: currentUser?.username, movieId };
-        onAddReview(review);
-        onClose();
+    const handleSubmit = async () => {
+        const review = {
+            image: image || 'Test Image URL',
+            title: title || 'Test Title',
+            genre: genre || 'Test Genre',
+            rating: rating || 5,
+            username: currentUser?.username || 'Anonymous',
+            movie_id: movieId || 0,
+        };
+    
+        const { data, error } = await supabase.from('reviews').insert([review]);
+    
+        if (error) {
+            console.error('Error inserting data:', error);
+            return;
+        }
+    
+        if (data) {
+            console.log('Insert successful:', data);
+            onAddReview(data[0]); 
+            onClose();
+        }
     };
+    
 
     const handleTitleChange = (e) => {
         const newTitle = e.target.value;
         setTitle(newTitle);
         if (newTitle) {
-            fetchMovieData(newTitle); 
+            fetchMovieData(newTitle);
         } else {
-            setImage(''); 
-            setMovieId(null); 
-            setGenre(''); 
+            setImage('');
+            setMovieId(null);
+            setGenre('');
         }
     };
 
-    // Maneja clics fuera del modal
     const handleClickOutside = (event) => {
         if (modalRef.current && !modalRef.current.contains(event.target)) {
             onClose();

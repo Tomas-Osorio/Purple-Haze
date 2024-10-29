@@ -1,0 +1,23 @@
+.custom-caption {
+    background-color: rgba(128, 128, 128, 0.5); /* Gray transparent background */
+    color: white;
+    font-weight: bold; /* Makes the font thicker */
+    text-transform: uppercase; /* Converts text to uppercase */
+    padding: 10px; /* Adds some padding around the text */
+  }
+
+  
+  .carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color:black ;
+  background-size: 100% 100%;
+  filter: invert(1); 
+}
+
+.carousel-control-prev-icon {
+  margin-left: -50px; 
+}
+
+.carousel-control-next-icon {
+  margin-right: -50px; 
+}
